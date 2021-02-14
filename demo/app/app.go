@@ -223,7 +223,8 @@ func NewDemoApp(
 	govRouter.AddRoute(gov.RouterKey, gov.ProposalHandler).
 		AddRoute(paramproposal.RouterKey, params.NewParamChangeProposalHandler(app.paramsKeeper)).
 		AddRoute(distr.RouterKey, distr.NewCommunityPoolSpendProposalHandler(app.distrKeeper)).
-		AddRoute(upgrade.RouterKey, upgrade.NewSoftwareUpgradeProposalHandler(app.upgradeKeeper))
+		AddRoute(upgrade.RouterKey, upgrade.NewSoftwareUpgradeProposalHandler(app.upgradeKeeper)).
+		AddRoute(intertxtypes.RouterKey, intertx.NewRegisterInterchainAccountProposalHandler(app.interTxKeeper))
 	app.govKeeper = gov.NewKeeper(
 		appCodec, keys[gov.StoreKey], app.subspaces[gov.ModuleName], app.accountKeeper, app.bankKeeper,
 		&stakingKeeper, govRouter,
